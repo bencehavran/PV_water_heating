@@ -58,8 +58,66 @@ Assume you already have Home Assistant running and have some experience with it.
 You can create automations within Home Assistant to monitor the energy data from the Shelly devices and control the voltage regulator based on real-time measurements.
 Scripting:
 
-LATER 
+create an automatism in homeassistant and insert it. exceeding -52 values ​​turns on shelly1 up, modify it with your shelly's ID and the shelly 3em sensor!
 
+```alias: Boiler heating up 
+description: boiler heating up
+trigger:
+  - platform: numeric_state
+    entity_id: sensor.YOUR.SHELLY.1.UP
+    below: "-52"
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 4
+condition: []
+action:
+  - repeat:
+      while:
+        - condition:
+            - condition: numeric_state
+              entity_id: sensor.YOUR.SHELLY.3EM
+              below: "0"
+      sequence:
+        - type: turn_on
+          device_id: 7e9a14931c2528ef19bf6838c96cefee
+          entity_id: d43569b6af79f2d72e1cd4cb5f7105e2
+          domain: switch
+        - delay: "00:00:3"
+mode: single
+```
+and this is the automatism for turn down:
+
+```alias: Boiler heating DOWN
+description:  Boiler heating DOWN
+trigger:
+  - platform: numeric_state
+    entity_id:  sensor.YOUR.SHELLY.3EM
+    above: "62"
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 5
+condition: []
+action:
+  - repeat:
+      while:
+        - condition: and
+          conditions:
+            - condition: numeric_state
+              entity_id: sensor.YOUR.SHELLY.1.DOWN
+              above: "6"
+            - condition: numeric_state
+              entity_id: sensor.power_total
+              above: 62
+      sequence:
+        - type: turn_on
+          device_id: YOUR.SHELLY.1.UP
+          entity_id: YOUR.SHELLY.1.UP
+          domain: switch
+        - delay: "00:00:02"
+mode: single
+```
 This method provides more precise control and reduces dependency on cloud services.
 Final Notes
 
