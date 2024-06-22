@@ -1,5 +1,5 @@
 # PV_water_heating
-Using Excess Photovoltaic Energy for Water Heating
+Using Photovoltaic Energy for Water Heating
 <img src="https://github.com/bencehavran/PV_water_heating/assets/64528618/e37bdf65-1786-4cb9-a537-110f9ae944dc" width="750" height="400">
 <img src="https://github.com/bencehavran/PV_water_heating/assets/64528618/64499a64-3502-44a1-b8be-09d865c177b9" width="300" height="580">
 
